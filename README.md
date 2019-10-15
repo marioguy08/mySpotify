@@ -27,7 +27,7 @@ Our application generates and visualizes data queried from a user’s Spotify pl
 The application is something of a social network built around Spotify. We generate graphs from the songs in your playlist, and allow you to share them with friends. It's an easy visualizer for the mood, genre, and style of your playlists. 
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
@@ -60,7 +60,7 @@ Give an example
 Run the flask server
 
 ```
-python run.py
+sudo python run.py
 ```
 
 ## 🚀 Filesystem, Architecture <a name = "deployment"></a>

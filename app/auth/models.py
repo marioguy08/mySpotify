@@ -11,15 +11,15 @@ class User(db.Model):
     username            = db.Column(db.String(128), nullable=False, unique=True)
     password            = db.Column(db.String(128), nullable=False)
     spotify_username    = db.Column(db.String(128), nullable=True)
-    auth_token          = db.Column(db.String(128), nullable=True)
+    access_token          = db.Column(db.String(128), nullable=True)
     refresh_token       = db.Column(db.String(128), nullable=True)
     
-    def __init__(self, email, username, password, spotify_username="", auth_token="", refresh_token=""):
+    def __init__(self, email, username, password, spotify_username="", access_token="", refresh_token=""):
         self.email              = email
         self.username           = username
         self.password           = password
         self.spotify_username   = spotify_username
-        self.auth_token         = auth_token
+        self.access_token       = access_token
         self.refresh_token      = refresh_token
 
     def __repr__(self):
@@ -44,5 +44,5 @@ class User(db.Model):
         return check_password_hash(self.password, password)
 
     def update_token(self, new_token):
-        self.auth_token = new_token
+        self.access_token = new_token
         db.session.commit()
