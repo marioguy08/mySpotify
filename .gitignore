@@ -12,3 +12,4 @@ pyvenv.cfg
 pip-selfcheck.json
 env
 __pycache__
+app.db
