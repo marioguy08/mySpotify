@@ -69,10 +69,17 @@ Filestructure follows [Digital Ocean](https://www.digitalocean.com) [___guidelin
 
 ### File Structure
 ```
+(env) poile@SERVER:~/repos/team7$ tree -I env
 .
+├── README.md
 ├── app
 │   ├── __init__.py
 │   ├── auth
+│   │   ├── __init__.py
+│   │   ├── controllers.py
+│   │   ├── forms.py
+│   │   └── models.py
+│   ├── profiles
 │   │   ├── __init__.py
 │   │   ├── controllers.py
 │   │   ├── forms.py
@@ -90,6 +97,9 @@ Filestructure follows [Digital Ocean](https://www.digitalocean.com) [___guidelin
 │       ├── auth
 │       │   ├── signin.html
 │       │   └── signup.html
+│       ├── profiles
+│       │   ├── delete.html
+│       │   └── me.html
 │       └── site
 │           ├── index_anonymous.html
 │           └── index_signedin.html
@@ -100,8 +110,7 @@ Filestructure follows [Digital Ocean](https://www.digitalocean.com) [___guidelin
 │   ├── File-Functions Map.png
 │   └── Page Flow.png
 ├── requirements.txt
-├── run.py
-└── structure.txt
+└── run.py
 ```
 
 ## ⛏️ Built Using <a name = "built_using"></a>

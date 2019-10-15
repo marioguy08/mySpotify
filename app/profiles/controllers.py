@@ -5,7 +5,7 @@ from app import db, login_manager
 from app.auth.models import User
 from app.profiles.models import Profile
 from app.spotify.models import Spotify
-from app.profiles.forms import DeleteForm
+from app.profiles.forms import DeleteForm, SearchForm
 
 profiles = Blueprint('profiles', __name__, url_prefix='/profile')
 
@@ -44,3 +44,14 @@ def delete():
         return redirect(url_for('site.home'))
     
     return render_template('profiles/delete.html', form=form)
+
+@profiles.route('/search', methods=['GET', 'POST'])
+@login.login_required
+def search():
+    form = SearchForm(request.form)
+    results = []
+
+    if request.method == 'POST' and form.validate():
+        users = Profile.query.filter(Profile.username.contains(form.data['username'])
+
+    return render_template('profiels/search.html', form=form, results=results)
