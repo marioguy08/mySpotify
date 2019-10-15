@@ -32,7 +32,7 @@ SPOTIFY_CLIENT_ID       = ''
 SPOTIFY_CLIENT_SECRET   = ''
 SPOTIFY_API_BASE_URL    = 'https://api.spotify.com/v1'
 SPOTIFY_AUTH_URL        = 'https://accounts.spotify.com'
-SPOTIFY_REDIRECT_URI    = 'http://192.168.88.249:8080/auth/callback'
+SPOTIFY_REDIRECT_URI    = 'http://192.168.88.249/auth/callback'
 SPOTIFY_SCOPE           = 'playlist-read-private user-follow-read user-read-private'
 
 login_manager_secret_key= b'\xdc\x95!B1\xa0\xea:\xea\x8dn\'\xef~;I\x86Z\x9aSY\xde\x9cY\xbc_\x9e\xaf\x05&"\x07'

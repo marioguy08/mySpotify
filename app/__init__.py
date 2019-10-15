@@ -24,6 +24,6 @@ from app.profiles.controllers import profiles
 app.register_blueprint(auth)
 app.register_blueprint(site)
 app.register_blueprint(profiles)
-# app.register_bluebrint(x)
+# app.register_blueprint(x)
 
 db.create_all()
