@@ -13,3 +13,11 @@ class DeleteForm(FlaskForm):
             or len(username.data) > 32 \
             or username.data != User.get(current_user.get_id()).username:
             raise ValidationError('Input doesn\'t match username.')
+
+
+class SearchForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+
+    def validate_username(self, username):
+        if not username.data or len(username.data) > 32:
+            raise ValidationError('Input doesn\'t match username.')

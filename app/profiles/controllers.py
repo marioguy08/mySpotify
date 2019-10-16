@@ -31,8 +31,7 @@ def me():
 @profiles.route('/delete', methods=['GET', 'POST'])
 @login_required
 def delete():
-    form = DeleteForm(request.form)
-    
+    form        = DeleteForm(request.form)
     user        = Profile.get(current_user.get_id())
     credentials = User.get(current_user.get_id())
 
@@ -46,12 +45,23 @@ def delete():
     return render_template('profiles/delete.html', form=form)
 
 @profiles.route('/search', methods=['GET', 'POST'])
-@login.login_required
+@login_required
 def search():
     form = SearchForm(request.form)
     results = []
 
     if request.method == 'POST' and form.validate():
-        users = Profile.query.filter(Profile.username.contains(form.data['username'])
+        results = Profile.query.filter(Profile.username.contains(form.data['username'])).all()
 
-    return render_template('profiels/search.html', form=form, results=results)
+        if len(results) == 1:
+            return redirect(url_for('profiles.user_page', id=results[0].id))
+
+    return render_template('profiles/search.html', form=form, results=results)
+
+@profiles.route('/user/<id>', methods=['GET'])
+@login_required
+def user_page(id):
+    if Profile.get(id):
+        return render_template('profiles/profile.html', user=Profile.get(id))
+    else:
+        return 404
