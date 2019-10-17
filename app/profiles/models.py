@@ -7,20 +7,19 @@ class Profile(db.Model):
     id                  = db.Column(db.Integer,     primary_key=True)
     username            = db.Column(db.String(128), nullable=False, unique=True)
     spotify_username    = db.Column(db.String(128), nullable=True)
-    following           = db.Column(db.String(2048),nullable=True)
-    followers           = db.Column(db.String(2048),nullable=True)
+    following           = db.Column(db.String,      default='')
+    followers           = db.Column(db.String,      default='')
     ppd                 = db.Column(db.String(128), nullable=True)
     emoji               = db.Column(db.String(128), nullable=True) # https://stackoverflow.com/questions/43557926/flask-sqlalchemy-cant-insert-emoji-to-mysql?noredirect=1&lq=1
 
-    def __init__(self, username, spotify_username, ppd=""):
+    def __init__(self, username, spotify_username, ppd=''):
         self.username           = username
         self.spotify_username   = spotify_username
-        self.followers          = ""
-        self.following          = ""
+        self.followers         = ''
+        self.following         = ''
         self.ppd                = ppd
-        self.emoji              = ""
+        self.emoji              = ''
         
-
     def __repr__(self):
         return '<Profile %r>' % (self.username)
 

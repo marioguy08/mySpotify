@@ -1,17 +1,47 @@
-<h1>Hello, {{ current_user.username }}. Nice to see you again.</h1>
+<html>
+    <head>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript" src="static/js/api.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                displayMyPlaylists();
+            });
 
-<a href="profile/me">
-    <button>View Profile</button>
-</a>
+        </script>
 
-<br>
+    </head>
 
-<a href="profile/search">
-    <button>Search Profiles</button>
-</a>
+    <body>
+        <div style="height: 5%;">
+            <h1>Hello, {{ current_user.username }}. Nice to see you again.</h1>
+        </div>
 
-<br>
+        <div style="display:inline-block; width: 20%; height: 92%; overflow: auto;">
+            <h5>Playlists:</h5>
+            <ul class="playlist_list"></ul>
+        </div>
 
-<a href="auth/signout">
-    <button>Sign Out</button>
-</a>
+        <div style="display:inline-block; width: 60%; height: 92%; overflow: auto;;">
+            <h5>Songs:</h5>
+            <ul class="track_list"></ul>
+        </div>
+
+        <div style="display: inline-block; width: 5%;">
+            <a href="profile/me">
+                <button>View Profile</button>
+            </a>
+
+            <br>
+
+            <a href="profile/search">
+                <button>Search Profiles</button>
+            </a>
+
+            <br>
+
+            <a href="auth/signout">
+                <button>Sign Out</button>
+            </a>
+        </div>
+    </body>
+</html>

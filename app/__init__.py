@@ -17,13 +17,14 @@ app.secret_key = config.login_manager_secret_key
 def not_found(e):
     return render_template('404.html'), 404
 
+from app.api.controllers import api
 from app.auth.controllers import auth
 from app.site.controllers import site
 from app.profiles.controllers import profiles
 
+app.register_blueprint(api)
 app.register_blueprint(auth)
 app.register_blueprint(site)
 app.register_blueprint(profiles)
-# app.register_blueprint(x)
 
 db.create_all()

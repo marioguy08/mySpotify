@@ -68,15 +68,16 @@ def spotify():
 @auth.route('/callback', methods=['GET'])
 @login_required
 def callback():
+    print('fuck')
     if request.args.get('error') or not request.args.get('code'):
         abort(404)
     
-    sportify_handler = Spotify(request.args.get('code'))
+    spotify_handler = Spotify(request.args.get('code'))
     user = User.get(current_user.get_id())
-    user.access_token, user.refresh_token = sportify_handler.get_tokens()
-    user.spotify_username = sportify_handler.get_spotify_username(user.access_token)
+    user.access_token, user.refresh_token = spotify_handler.get_tokens()
+    user.spotify_username = spotify_handler.get_spotify_username(user.access_token)
 
-    db.session.add(Profile(user.username, user.spotify_username, ppd=sportify_handler.get_spotify_profile_picture_url(user.access_token)))
+    db.session.add(Profile(user.username, user.spotify_username, ppd=spotify_handler.get_spotify_profile_picture_url(user.access_token)))
     db.session.commit()
 
     return redirect(url_for('site.home'))

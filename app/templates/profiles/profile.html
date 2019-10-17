@@ -1,23 +1,39 @@
-<img style="width: 300px; height: 300px" src={{user.ppd}}> </img>
+<html>
+    <head>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript" src="../../static/js/api.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                displayPlaylists('{{spotify_id}}');
+            });
+        </script>
+    </head>
 
-<h1> {{ user.username }} </h1>
-<h2> {{ user.spotify_username }} </h2>
+    <body>
+        <div style="width:40%; height: 40%; display: inline-block; top: 0;">
+            <img style="width: 300px; height: 300px" src={{profile.ppd}}> </img>
 
-<b>Followers:</b> {{ user.followers }} <br>
-<b>Following:</b> {{ user.following }} <br>
+            <h1> {{ profile.username }} </h1>
+            <h2> {{ profile.spotify_username }} </h2>
+
+            <button onclick='followHandler()' id='{{ profile.id }}' class='follow'>Follow/Unfollow</button> <br>
+
+            <b>Followers:</b> <div class='followers'> {{ profile.followers }} </div> <br>
+            <b>Following:</b> <div class='following'> {{ profile.following }} </div> <br>
 
 
-<b>Status:</b> {{ user.emoji }} <br>
+            <b>Status:</b> {{ profile.emoji }} <br>
+        </div>
 
-<!-- <u>Number of Playlists:</u> {{ number_of_playlists }} <br>
+        <div style="display:inline-block; width: 30%; height: 92%; overflow: auto;">
+            <h5>Playlists:</h5>
+            <ul class="playlist_list"></ul>
+        </div>
 
-<h5>Playlists:</h5>
-<ul>
-    {% for playlist in playlists %}
-        <li>{{ playlist }} </li>
-    {% endfor %}
-</ul> -->
+        <a style="display: inline-block;" href="/">
+            <button>Home</button>
+        </a>
 
-<a href="/">
-    <button>Home</button>
-</a>
+        <br>
+    </body>
+</html>

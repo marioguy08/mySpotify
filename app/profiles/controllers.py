@@ -13,20 +13,13 @@ profiles = Blueprint('profiles', __name__, url_prefix='/profile')
 @profiles.route('/me', methods=['GET', 'POST']) 
 @login_required
 def me():
-    user        = Profile.get(current_user.get_id())
-    credentials = User.get(current_user.get_id())
-    spotify     = Spotify()
+    profile         = Profile.get(current_user.get_id())
+    user            = User.get(current_user.get_id())
+    spotify_handler = Spotify()
 
-    credentials.update_token(spotify.refresh_access_token(credentials.refresh_token))
-
-    # ... you could always paginate this data to save load times
-    playlists = spotify.get_spotify_user_playlists(credentials.access_token)
+    user.update_token(spotify_handler.refresh_access_token(user.refresh_token))
     
-    names = []
-    for playlist in playlists:
-        names.append(playlist['name'])
-    
-    return render_template('profiles/me.html', user=user, number_of_playlists=len(playlists), playlists=names)
+    return render_template('profiles/me.html', profile=profile)
 
 @profiles.route('/delete', methods=['GET', 'POST'])
 @login_required
@@ -61,7 +54,13 @@ def search():
 @profiles.route('/user/<id>', methods=['GET'])
 @login_required
 def user_page(id):
-    if Profile.get(id):
-        return render_template('profiles/profile.html', user=Profile.get(id))
+    profile         = Profile.get(id)
+    user            = User.get(id)
+    spotify_handler = Spotify()
+
+
+    if profile:
+        user.update_token(spotify_handler.refresh_access_token(user.refresh_token))
+        return render_template('profiles/profile.html', profile=Profile.get(id), spotify_id=spotify_handler.get_spotify_user_id(user.access_token))
     else:
         return 404
