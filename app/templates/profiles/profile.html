@@ -1,39 +1,46 @@
 <html>
-    <head>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script type="text/javascript" src="../../static/js/api.js"></script>
-        <script type="text/javascript">
-            $(function () {
-                displayPlaylists('{{spotify_id}}');
-            });
-        </script>
-    </head>
 
-    <body>
-        <div style="width:40%; height: 40%; display: inline-block; top: 0;">
-            <img style="width: 300px; height: 300px" src={{profile.ppd}}> </img>
+<head>
+    <title>{{ profile.username }}</title>
+    <link rel="stylesheet" href="../../static/css/styles.css">
 
-            <h1> {{ profile.username }} </h1>
-            <h2> {{ profile.spotify_username }} </h2>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="../../static/js/api.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            displayPlaylists('{{spotify_id}}');
+        });
+    </script>
+</head>
+
+<body>
+    <div class="dropdown-container">
+        <img src="../../static/img/logo.png" class="logo">
+        <a href="/">
+            <button>Home</button>
+        </a>
+    </div>
+
+    <div class="profile-container">
+        <img class="profile-picture" src={{profile.ppd}}> </img>
+
+        <h2> {{ profile.username }} </h2>
+        <h3> {{ profile.spotify_username }} </h3>
+
+        <div class="profile-content">
+            <b>Followers:</b> {{ profile.followers }} <br>
+            <b>Following:</b> {{ profile.following }} <br>
 
             <button onclick='followHandler()' id='{{ profile.id }}' class='follow'>Follow/Unfollow</button> <br>
 
-            <b>Followers:</b> <div class='followers'> {{ profile.followers }} </div> <br>
-            <b>Following:</b> <div class='following'> {{ profile.following }} </div> <br>
-
-
             <b>Status:</b> {{ profile.emoji }} <br>
+            <b>Playlists:</b> <br>
+
+            <div class="playlists-container">
+                <ul class="playlist-list"></ul>
+            </div>
         </div>
+    </div>
+</body>
 
-        <div style="display:inline-block; width: 30%; height: 92%; overflow: auto;">
-            <h5>Playlists:</h5>
-            <ul class="playlist_list"></ul>
-        </div>
-
-        <a style="display: inline-block;" href="/">
-            <button>Home</button>
-        </a>
-
-        <br>
-    </body>
 </html>

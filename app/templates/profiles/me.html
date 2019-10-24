@@ -1,5 +1,8 @@
 <html>
     <head>
+        <title>{{ profile.username }}</title> 
+        <link rel="stylesheet" href="../static/css/styles.css">
+
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script type="text/javascript" src="../static/js/api.js"></script>
         <script type="text/javascript">
@@ -10,30 +13,31 @@
     </head>
 
     <body>
-        <img style="width: 300px; height: 300px" src={{profile.ppd}}> </img>
-
-        <h1> {{ profile.username }} </h1>
-        <h2> {{ profile.spotify_username }} </h2>
-
-        <b>Followers:</b> {{ profile.followers }} <br>
-        <b>Following:</b> {{ profile.following }} <br>
-
-
-        <b>Status:</b> {{ profile.emoji }} <br>
-
-        <div style="display:inline-block; width: 30%; height: 92%; overflow: auto;">
-            <h5>Playlists:</h5>
-            <ul class="playlist_list"></ul>
+        <div class="dropdown-container">
+            <img src="../static/img/logo.png" class="logo">
+            <a href="/">
+                <button>Home</button>
+            </a>
         </div>
+        
+        <div class="profile-container">
+            <img class="profile-picture" src={{profile.ppd}}> </img>
 
-        <a href="/">
-            <button>Home</button>
-        </a>
+            <h2> {{ profile.username }} </h2>
+            <h3> {{ profile.spotify_username }} </h3>
 
-        <br>
+            <div class="profile-content">
+                <b>Followers:</b> {{ profile.followers }} <br>
+                <b>Following:</b> {{ profile.following }} <br>
 
-        <a href="/profile/delete">
-            <button>Delete Account</button>
-        </a>
+
+                <b>Status:</b> {{ profile.emoji }} <br>
+                <b>Playlists:</b> <br>
+
+                <div class="playlists-container">
+                    <ul class="playlist-list"></ul>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

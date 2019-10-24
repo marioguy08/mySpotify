@@ -1,11 +1,12 @@
-from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
-from flask_login import login_user, logout_user, login_required, current_user
+from flask import Blueprint, request, render_template, redirect, url_for
+from flask_login import login_required, current_user
 
-from app import db, login_manager
+from app import db
 from app.auth.models import User
 from app.profiles.models import Profile
 from app.spotify.models import Spotify
 from app.profiles.forms import DeleteForm, SearchForm
+from app.api.controllers import init
 
 profiles = Blueprint('profiles', __name__, url_prefix='/profile')
 
@@ -13,9 +14,8 @@ profiles = Blueprint('profiles', __name__, url_prefix='/profile')
 @profiles.route('/me', methods=['GET', 'POST']) 
 @login_required
 def me():
-    profile         = Profile.get(current_user.get_id())
-    user            = User.get(current_user.get_id())
-    spotify_handler = Spotify()
+    profile               = Profile.get(current_user.get_id())
+    user, spotify_handler = init(current_user)
 
     user.update_token(spotify_handler.refresh_access_token(user.refresh_token))
     
@@ -55,12 +55,10 @@ def search():
 @login_required
 def user_page(id):
     profile         = Profile.get(id)
-    user            = User.get(id)
-    spotify_handler = Spotify()
 
-
-    if profile:
-        user.update_token(spotify_handler.refresh_access_token(user.refresh_token))
-        return render_template('profiles/profile.html', profile=Profile.get(id), spotify_id=spotify_handler.get_spotify_user_id(user.access_token))
-    else:
+    if not profile:
         return 404
+
+    user, spotify_handler = init(None, id)
+
+    return render_template('profiles/profile.html', profile=Profile.get(id), spotify_id=spotify_handler.get_spotify_user_id(user.access_token))

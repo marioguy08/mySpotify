@@ -40,11 +40,11 @@ var makePostRequest = function (url, data, onSuccess, onFailure) {
 };
 
 var playlist_format = function (ppd, title, length, id) {
-    return "<div onclick='playlistHandler()' id='" + id + "'class='playlist'><li><img src='" + ppd + "' style=\"width: 100px; height: 100px\"><b class='playlist_title'>" + title + "</b> <i>" + length + " songs</i></li></div>";
+    return "<div onclick='playlistHandler()' id='" + id + "'class='playlist'><li><img src='" + ppd + "' class='playlist-cover'><b class='playlist-title'>" + title + "</b> - <i>" + length + " songs</i></li></div>";
 };
 
 var track_format = function (title, artist, album) {
-    return "<li><div class='track'><b class='track_title'>" + title + "</b> - <i>" + artist + "</i> - <i>" + album + "</i> </div> </li>";
+    return "<li><div class='track'><b class='track-title'>" + title + "</b> - <i>" + artist + "</i> - <i>" + album + "</i> </div> </li>";
 };
 
 var followHandler = function () {
@@ -80,13 +80,13 @@ var followHandler = function () {
 
 var playlistHandler = function () {
     $('div.playlist').click(function() {
-        $(".track_list").html('<img src="https://media2.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif"/>');
+        $(".track-list").html('<img src="https://media2.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif"/>');
         
         var onSuccess = function (data) {
-            $('.track_list').html('');
+            $('.track-list').html('');
             
             for(var i = 0; i < data.tracks.length; i++) {
-                $('.track_list').append(track_format(data.tracks[i].track.name, data.tracks[i].track.artists[0].name, data.tracks[i].track.album.name))
+                $('.track-list').append(track_format(data.tracks[i].track.name, data.tracks[i].track.artists[0].name, data.tracks[i].track.album.name))
             }
         }
 
@@ -99,13 +99,13 @@ var playlistHandler = function () {
 };
 
 var displayMyPlaylists = function () {
-    $(".playlist_list").html('<img src="https://media2.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif"/>');
+    $(".playlist-list").html('<img src="https://media2.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif"/>');
 
     var onSuccess = function (data) {
-        $(".playlist_list").html('');
+        $(".playlist-list").html('');
 
         for (var i = 0; i < data.playlists.length; i++) {
-            $(".playlist_list").append(playlist_format(data.playlists[i].images[0].url, data.playlists[i].name, data.playlists[i].tracks.total, data.playlists[i].id));
+            $(".playlist-list").append(playlist_format(data.playlists[i].images[0].url, data.playlists[i].name, data.playlists[i].tracks.total, data.playlists[i].id));
         }        
     }
 
@@ -117,11 +117,11 @@ var displayMyPlaylists = function () {
 };
 
 var displayPlaylists = function(id) {
-    $(".playlist_list").html('');
+    $(".playlist-list").html('');
 
     var onSuccess = function(data) {
         for (var i = 0; i < data.playlists.length; i++) {
-            $(".playlist_list").append(playlist_format(data.playlists[i].images[0].url, data.playlists[i].name, data.playlists[i].tracks.total));
+            $(".playlist-list").append(playlist_format(data.playlists[i].images[0].url, data.playlists[i].name, data.playlists[i].tracks.total));
         }       
     }
 

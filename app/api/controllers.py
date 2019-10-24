@@ -11,8 +11,12 @@ from app.spotify.models import Spotify
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
-def init(current_user):
-    user            = User.get(current_user.get_id())
+def init(current_user, id=None):
+    if id:
+        user        = User.get(id)
+    else:
+        user        = User.get(current_user.get_id())
+        
     spotify_handler = Spotify()
 
     user.update_token(spotify_handler.refresh_access_token(user.refresh_token))
@@ -30,7 +34,6 @@ def playlists(id):
 @login_required
 def playlists_me():
     user, spotify_handler = init(current_user)
-
     return jsonify({ 'playlists' : spotify_handler.get_spotify_current_user_playlists(user.access_token) })
 
 
@@ -38,7 +41,6 @@ def playlists_me():
 @login_required
 def playlist(id):
     user, spotify_handler = init(current_user)
-
     return jsonify({'tracks': spotify_handler.get_spotify_playlist_tracks(user.access_token, id)})
 
 @api.route('/profiles/follow/<id>', methods=['POST'])

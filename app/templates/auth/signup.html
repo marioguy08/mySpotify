@@ -1,53 +1,73 @@
-{% macro render_field(field, placeholder=None) %}
-{% if field.errors %}
-<div>
-    {% elif field.flags.error %}
-    <div>
-        {% else %}
-        <div>
-            {% endif %}
-            {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
-            {{ field(class=css_class, placeholder=placeholder, **kwargs) }}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+    <div class="body-container">
+        <div class="dropdown-container">
+            <img src="../static/img/logo.png" class="logo">
+            <a href="/">
+                <button>Home</button>
+            </a>
         </div>
-        {% endmacro %}
 
-        <div>
+        <div class="content-container">
+            {% macro render_field(field, placeholder=None) %}
+            {% if field.errors %}
             <div>
-                <legend>Sign Up</legend>
-                {% with errors = get_flashed_messages(category_filter=["error"]) %}
-                {% if errors %}
+                {% elif field.flags.error %}
                 <div>
-                    {% for error in errors %}
-                    {{ error }}<br>
-                    {% endfor %}
+                    {% else %}
+                    <div>
+                        {% endif %}
+                        {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
+                        {{ field(class=css_class, placeholder=placeholder, **kwargs) }}
+                    </div>
+                    {% endmacro %}
+
+                    <div>
+                        <div>
+                            <legend><h4>Sign Up</h4></legend>
+                            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                            {% if errors %}
+                            <div>
+                                {% for error in errors %}
+                                {{ error }}<br>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+
+                            {% if form.errors %}
+                            <div>
+                                {% for field, error in form.errors.items() %}
+                                {% for e in error %}
+                                {{ e }}<br>
+                                {% endfor %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <form class="form" method="POST" accept-charset="UTF-8">
+                                {{ form.csrf_token }}
+                                {{ render_field(form.username, placeholder="Username", autofocus="", class="form-input") }}
+                                {{ render_field(form.email, placeholder="Email Address", class="form-input") }}
+                                {{ render_field(form.password, placeholder="Password", class="form-input") }}
+
+                                <div class="form-captcha">
+                                    {{ render_field(form.recaptcha, placeholder="Recaptcha", class="form-captcha") }}
+                                </div>
+                                
+                                <button class="btn form-btn" type="submit" value="signup">Submit</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                {% endif %}
-                {% endwith %}
-
-                {% if form.errors %}
-                <div>
-                    {% for field, error in form.errors.items() %}
-                    {% for e in error %}
-                    {{ e }}<br>
-                    {% endfor %}
-                    {% endfor %}
-                </div>
-                {% endif %}
-                <form method="POST" accept-charset="UTF-8">
-                    {{ form.csrf_token }}
-                    {{ render_field(form.username, placeholder="Username", autofocus="") }}
-                    {{ render_field(form.email, placeholder="Email Address",) }}
-                    {{ render_field(form.password, placeholder="Password") }}
-                    {{ render_field(form.recaptcha, placeholder="Recaptcha") }}
-
-                    <button type="submit" value="signup">Sign Up</button>
-                </form>
-
-                <a href="/">
-                    <button>Home</button>
-                </a>
             </div>
         </div>
     </div>
-</div>
-        
+</body>
+</html>
