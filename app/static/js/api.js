@@ -40,7 +40,7 @@ var makePostRequest = function (url, data, onSuccess, onFailure) {
 };
 
 var playlist_format = function (ppd, title, length, id) {
-    return "<div onclick='playlistHandler()' id='" + id + "'class='playlist'><li><img src='" + ppd + "' class='playlist-cover'><b class='playlist-title'>" + title + "</b> - <i>" + length + " songs</i></li></div>";
+    return "<div onclick='playlistHandler()' id='" + id + "' class='playlist'><li><img src='" + ppd + "' class='playlist-cover'><b class='playlist-title'>" + title + "</b> - <i>" + length + " songs</i></li></div>";
 };
 
 var track_format = function (title, artist, album) {
@@ -80,7 +80,7 @@ var followHandler = function () {
 
 var playlistHandler = function () {
     $('div.playlist').click(function() {
-        $(".track-list").html('<img src="https://media2.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif"/>');
+        $(".track-list").html('<img class="loading" src="../static/img/loading.gif"/>');
         
         var onSuccess = function (data) {
             $('.track-list').html('');
@@ -99,7 +99,7 @@ var playlistHandler = function () {
 };
 
 var displayMyPlaylists = function () {
-    $(".playlist-list").html('<img src="https://media2.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif"/>');
+    $(".playlist-list").html('<img class="loading" src="../static/img/loading.gif"/>');
 
     var onSuccess = function (data) {
         $(".playlist-list").html('');

@@ -194,7 +194,8 @@ body {
 .playlist-cover {
     width: 100px;
     height: 100px;
-    margin-right: 10px;
+    margin: 10px;
+    vertical-align: middle;
 }
 
 .home {
@@ -220,7 +221,13 @@ body {
     padding: 0;
 }
 
-.column { 
+.column {
     float: left;
     margin-right: 20px;
+}
+
+.loading {
+    width: 150px;
+    height: 150px;
+    margin: auto;
 }

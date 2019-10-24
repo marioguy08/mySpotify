@@ -10,6 +10,7 @@
     <script type="text/javascript">
         $(function () {
             displayMyPlaylists();
+            playlistHandler();
         });
 
     </script>
@@ -42,7 +43,7 @@
                 <h1>Hello, {{ current_user.username }}. Nice to see you again.</h1>
             </div>
             
-            <div class="column">
+            <div class="column" style="width: 25%;">
                 <h5>Playlists:</h5>
                 <div class="playlists-container home-playlists-container">
                     <ul class="playlist-list"></ul>
