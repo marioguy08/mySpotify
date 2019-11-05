@@ -69,6 +69,7 @@ body {
 .logo {
     width: 70px;
     height: 70px;
+    margin-bottom: 10px;
 }
 
 .btn-container {
@@ -154,26 +155,43 @@ body {
 
 .profile-container {
     margin: auto;
+
     padding-top: 3%;
     text-align: center;
 }
 
 .profile-picture {
-    width: 300px;
-    height: 300px;
+    width: 20%;
     border-radius: 50%;
+}
+
+.profile-username {
+    margin: 15px;
+}
+
+.profile-spotify-username {
+    margin: 10px;
 }
 
 .profile-content {
     padding: 10px;
-    margin-left: 40%;
+    margin: auto;
+    width: 50%;
     text-align: left;
     font-size: 16px;
 }
 
+.playlist { 
+    font-size: 75%;
+}
+
+.playlists-label {
+    margin-top: 10px;
+}
+
 .playlists-container {
     display: inline-block;
-    width: 40%;
+    width: 100%;
     height: 50%;
     overflow: auto;
 }
@@ -227,7 +245,61 @@ body {
 }
 
 .loading {
-    width: 150px;
-    height: 150px;
-    margin: auto;
+    width: 50px;
+    height: 50px;
+}
+
+.loading-div {
+    margin: 30px;
+}
+
+.status-container {
+    text-align: left;
+}
+
+.status-content-container {
+    height: 14px;
+    margin-bottom: 10px;
+}
+
+.status-label {
+    float: left;
+    margin-right: 5px;
+}
+
+.status-update {
+    float: right;
+    margin-top: -7px;
+    margin-left: 30px;
+    margin-bottom: 5px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    line-height: 8px;
+}
+
+.status-input-container {
+    display: none;
+    height: 20px;
+    margin-top: 25px;
+}
+
+.status-input {
+    display: inline;
+    width: 55%;
+    height: 25px;
+    margin: 0px;
+}
+
+.status-submit {
+    float: right;
+    font-size: 10px;
+    letter-spacing: 1px;
+    line-height: 8px;
+    margin-bottom: 0px;
+}
+
+.status-content {
+    font-size: 14px;
+    font-weight: 100;
+    display: inline;
 }

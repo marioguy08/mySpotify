@@ -10,15 +10,14 @@ class Profile(db.Model):
     following           = db.Column(db.String,      default='')
     followers           = db.Column(db.String,      default='')
     ppd                 = db.Column(db.String(128), nullable=True)
-    emoji               = db.Column(db.String(128), nullable=True) # https://stackoverflow.com/questions/43557926/flask-sqlalchemy-cant-insert-emoji-to-mysql?noredirect=1&lq=1
-
+    status              = db.Column(db.String(128), default='') 
     def __init__(self, username, spotify_username, ppd=''):
         self.username           = username
         self.spotify_username   = spotify_username
-        self.followers         = ''
-        self.following         = ''
+        self.followers          = ''
+        self.following          = ''
         self.ppd                = ppd
-        self.emoji              = ''
+        self.status             = ''
         
     def __repr__(self):
         return '<Profile %r>' % (self.username)

@@ -68,7 +68,6 @@ def spotify():
 @auth.route('/callback', methods=['GET'])
 @login_required
 def callback():
-    print('fuck')
     if request.args.get('error') or not request.args.get('code'):
         abort(404)
     

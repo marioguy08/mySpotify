@@ -1,4 +1,4 @@
-var apiUrl = 'http://localhost:8080';
+var apiUrl = 'http://localhost';
 
 // PRIVATE METHODS
 
@@ -44,15 +44,15 @@ var playlist_format = function (ppd, title, length, id) {
 };
 
 var track_format = function (title, artist, album) {
-    return "<li><div class='track'><b class='track-title'>" + title + "</b> - <i>" + artist + "</i> - <i>" + album + "</i> </div> </li>";
+    return "<li><div class='track'><b class='track-title'>" + title + "</b> - <i>" + artist + "</i> - <i>" + album + "</i></div></li>";
 };
 
 var followHandler = function () {
     var id = $('.follow').prop('id');
 
     var onPostSuccess = function (data) {
-        makeGetRequest('/api/profiles/following/' + id, onGetFollowingSuccess, onFailure);
-        makeGetRequest('/api/profiles/followers/' + id, onGetFollowersSuccess, onFailure);
+        makeGetRequest('/api/profile/following/' + id, onGetFollowingSuccess, onFailure);
+        makeGetRequest('/api/profile/followers/' + id, onGetFollowersSuccess, onFailure);
     }
     
     var onGetFollowingSuccess = function (data) {
@@ -75,12 +75,12 @@ var followHandler = function () {
         console.error('Follow/Unfollow - Failed')
     }
 
-    makePostRequest('/api/profiles/follow/' + id, null, onPostSuccess, onFailure);
+    makePostRequest('/api/profile/follow/' + id, null, onPostSuccess, onFailure);
 };
 
 var playlistHandler = function () {
     $('div.playlist').click(function() {
-        $(".track-list").html('<img class="loading" src="../static/img/loading.gif"/>');
+        $(".track-list").html('<div class="loading-div"><img class="loading" src="../static/img/loading.gif"/></div>');
         
         var onSuccess = function (data) {
             $('.track-list').html('');
@@ -98,8 +98,21 @@ var playlistHandler = function () {
     });
 };
 
+var statusHandler = function () {
+    var onSuccess = function(data) {
+        $('.status-content').text(data.status);
+    }
+
+    var onFailure = function(xhr, status, error) {
+        alert(xhr.responseText);
+    }
+    
+    var data = { 'status' : $('.status-input').val() };
+    makePostRequest('/api/profile/me/status', data, onSuccess, onFailure);
+};
+
 var displayMyPlaylists = function () {
-    $(".playlist-list").html('<img class="loading" src="../static/img/loading.gif"/>');
+    $(".playlist-list").html('<div class="loading-div"><img class="loading" src="../static/img/loading.gif"/></div>');
 
     var onSuccess = function (data) {
         $(".playlist-list").html('');

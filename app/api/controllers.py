@@ -43,7 +43,7 @@ def playlist(id):
     user, spotify_handler = init(current_user)
     return jsonify({'tracks': spotify_handler.get_spotify_playlist_tracks(user.access_token, id)})
 
-@api.route('/profiles/follow/<id>', methods=['POST'])
+@api.route('/profile/follow/<id>', methods=['POST'])
 @login_required
 def follow(id):
     s_user = Profile.get(id)
@@ -67,13 +67,21 @@ def follow(id):
 
     return jsonify({ s_user.username: { 'following': s_user.following, 'followers': s_user.followers }, c_user.username: { 'following': s_user.following, 'followers': s_user.followers } })
 
-@api.route('/profiles/followers/<id>', methods=['GET'])
+@api.route('/profile/followers/<id>', methods=['GET'])
 @login_required
 def followers(id):
     return jsonify({'followers' : Profile.get(id).followers})
         
 
-@api.route('/profiles/following/<id>', methods=['GET'])
+@api.route('/profile/following/<id>', methods=['GET'])
 @login_required
 def following(id):
     return jsonify({'following': Profile.get(id).following})
+
+@api.route('/profile/me/status', methods=['POST'])
+@login_required
+def status():
+    profile = Profile.get(current_user.get_id())
+    profile.status = request.json['status']
+    db.session.commit()
+    return jsonify({ 'status' : profile.status })

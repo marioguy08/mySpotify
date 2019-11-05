@@ -10,8 +10,7 @@ from app.api.controllers import init
 
 profiles = Blueprint('profiles', __name__, url_prefix='/profile')
 
-# TODO: Edit profiles
-@profiles.route('/me', methods=['GET', 'POST']) 
+@profiles.route('/me', methods=['GET', 'POST'])
 @login_required
 def me():
     profile               = Profile.get(current_user.get_id())
