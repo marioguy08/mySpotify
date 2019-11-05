@@ -3,14 +3,6 @@
 <head>
     <title>{{ profile.username }}</title>
     <link rel="stylesheet" href="../../static/css/styles.css">
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script type="text/javascript" src="../../static/js/api.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            displayPlaylists('{{spotify_id}}');
-        });
-    </script>
 </head>
 
 <body>
@@ -41,6 +33,14 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="../../static/js/api.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            displayPlaylists('{{spotify_id}}');
+        });
+    </script>
 </body>
 
 </html>
