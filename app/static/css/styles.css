@@ -64,12 +64,40 @@ body {
     top: 0;
     right: 0;
     position: absolute;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-container a {
+    color: white;
+    text-decoration: none;
+    text-align: right;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 10px;
+    font-size: 16px;
+    display: block;
+}
+
+.dropdown-container a:hover {
+    background-color: gray;
+    transition: background-color 0.5s linear;
+}
+
+.dropdown-container:hover .dropdown-content {
+  display: block;
 }
 
 .logo {
     width: 70px;
     height: 70px;
-    margin-bottom: 10px;
 }
 
 .btn-container {
