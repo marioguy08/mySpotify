@@ -48,6 +48,8 @@ pip install -r requirements.txt
 ## 🔧 Tests <a name = "tests"></a>
 Eventually, I'd like to have a `./tests` folder, and write Unit Tests for the backend.
 
+For a guide on how to write Unit Tests for this application, see [here](https://www.patricksoftwareblog.com/unit-testing-a-flask-application/).
+
 #### Test 1
 
 Explain what this test tests and why.
