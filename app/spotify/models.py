@@ -76,7 +76,7 @@ class Spotify():
         return self.__get__(config.SPOTIFY_API_BASE_URL + '/audio-features/' + id, headers=self.get_headers('Bearer', access_token)).json()
 
     def get_spotify_songs_feature(self, access_token, ids):
-        return self.__get__('{}/audio-features/?ids={}'.format(config.SPOTIFY_API_BASE_URL, ','.join(id)), headers=self.get_headers('Bearer', access_token)).json()['audio_features']
+        return self.__get__('{}/audio-features/?ids={}'.format(config.SPOTIFY_API_BASE_URL, ','.join(ids)), headers=self.get_headers('Bearer', access_token)).json()['audio_features']
 
     def get_spotify_playlist_tracks(self, access_token, id):
         return self.__spotify_get_items__(config.SPOTIFY_API_BASE_URL + '/playlists/{}/tracks'.format(id), access_token, 100)

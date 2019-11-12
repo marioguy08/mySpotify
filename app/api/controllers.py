@@ -36,12 +36,42 @@ def playlists_me():
     user, spotify_handler = init(current_user)
     return jsonify({ 'playlists' : spotify_handler.get_spotify_current_user_playlists(user.access_token) })
 
-
 @api.route('/playlist/<id>', methods=['GET'])
 @login_required
 def playlist(id):
     user, spotify_handler = init(current_user)
     return jsonify({'tracks': spotify_handler.get_spotify_playlist_tracks(user.access_token, id)})
+
+@api.route('/playlist/<id>/features', methods=['GET'])
+@login_required
+def get_features_for_all_songs_in_playlist(id):
+    user, spotify_handler = init(current_user)
+    track_objects = spotify_handler.get_spotify_playlist_tracks(user.access_token, id)
+    track_ids = []
+
+    for track in track_objects:
+        track_ids.append(track['track']['id'])
+
+    track_features = spotify_handler.get_spotify_songs_feature(user.access_token, track_ids)
+
+    features = {
+        "danceability": [],
+        "energy": [],
+        "speechiness": [],
+        "acousticness": [],
+        "instrumentalness": [],
+        "liveness": [],
+        "valence": []
+    }
+
+    for track in track_features:
+        for key in features.keys():
+            features[key].append(track[key])
+
+    for key in features.keys():
+        features[key] = sum(features[key]) / len(features[key])
+
+    return jsonify(features)
 
 @api.route('/profile/follow/<id>', methods=['POST'])
 @login_required
