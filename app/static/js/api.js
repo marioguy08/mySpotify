@@ -40,7 +40,7 @@ var makePostRequest = function (url, data, onSuccess, onFailure) {
 };
 
 var playlist_format = function (ppd, title, length, id) {
-    return "<div onclick='playlistHandler()' id='" + id + "' class='playlist'><li><img src='" + ppd + "' class='playlist-cover'><b class='playlist-title'>" + title + "</b> - <i>" + length + " songs</i></li></div>";
+    return "<div onclick='playlistHandler(\""+id+"\")' id='" + id + "' class='playlist'><li><img src='" + ppd + "' class='playlist-cover'><b class='playlist-title'>" + title + "</b> - <i>" + length + " songs</i></li></div>";
 };
 
 var track_format = function (title, artist, album) {
@@ -78,24 +78,24 @@ var followHandler = function () {
     makePostRequest('/api/profile/follow/' + id, null, onPostSuccess, onFailure);
 };
 
-var playlistHandler = function () {
-    $('div.playlist').click(function() {
-        $(".track-list").html('<div class="loading-div"><img class="loading" src="../static/img/loading.gif"/></div>');
+var playlistHandler = function (playlist_id) {
+    $(".track-list").html('<div class="loading-div"><img class="loading" src="../static/img/loading.gif"/></div>');
+    
+    var onSuccess = function (data) {
+        $('.track-list').html('');
         
-        var onSuccess = function (data) {
-            $('.track-list').html('');
-            
-            for(var i = 0; i < data.tracks.length; i++) {
-                $('.track-list').append(track_format(data.tracks[i].track.name, data.tracks[i].track.artists[0].name, data.tracks[i].track.album.name))
-            }
+        for(var i = 0; i < data.tracks.length; i++) {
+            $('.track-list').append(track_format(data.tracks[i].track.name, data.tracks[i].track.artists[0].name, data.tracks[i].track.album.name))
         }
+    }
 
-        var onFailure = function (data) {
-            console.error('Display Playlist - Failed')
-        }
+    var onFailure = function (data) {
+        console.error('Display Playlist - Failed')
+    }
+    
+    console.log(playlist_id);
 
-        makeGetRequest('/api/playlist/' + $(this).prop('id'), onSuccess, onFailure);
-    });
+    makeGetRequest('/api/playlist/' + playlist_id, onSuccess, onFailure);
 };
 
 var statusHandler = function () {
