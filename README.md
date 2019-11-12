@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
   <a href="" rel="noopener">
  <img width=400px height=300px src="https://i.imgur.com/oCHZjSw.png" alt="Project logo"></a>
 </p>
@@ -123,8 +123,7 @@ Filestructure follows [Digital Ocean](https://www.digitalocean.com) [___guidelin
 ## ✍️ Authors <a name = "authors"></a>
 - [@bpoile](https://gitlab.eecs.wsu.edu/bpoile) - Benjamin Poile
 - [@bsimon](https://gitlab.eecs.wsu.edu/bsimon) - Brevin Simon
-- [@](https://gitlab.eecs.wsu.edu/) - Jiawei Liu
-- [@](https://gitlab.eecs.wsu.edu/) - Leonard Brkanac
+- [@marioguy08](https://gitlab.eecs.wsu.edu/) - Leonard Brkanac
 
 See also the list of [contributors](https://gitlab.eecs.wsu.edu/322-fall2019-termproject/team7/-/graphs/master) who participated in this project.
 
