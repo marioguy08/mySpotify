@@ -1,4 +1,5 @@
 var apiUrl = 'http://localhost';
+var loading_html = '<div class="loading-div"><img class="loading" src="../static/img/loading.gif"/></div>';
 
 // PRIVATE METHODS
 
@@ -40,7 +41,7 @@ var makePostRequest = function (url, data, onSuccess, onFailure) {
 };
 
 var playlist_format = function (ppd, title, length, id) {
-    return "<div onclick='playlistHandler(\""+id+"\")' id='" + id + "' class='playlist'><li><img src='" + ppd + "' class='playlist-cover'><b class='playlist-title'>" + title + "</b> - <i>" + length + " songs</i></li></div>";
+    return "<div onclick='trackHandler(\""+id+"\")' id='" + id + "' class='playlist'><li><img src='" + ppd + "' class='playlist-cover'><b class='playlist-title'>" + title + "</b> - <i>" + length + " songs</i></li></div>";
 };
 
 var track_format = function (title, artist, album) {
@@ -78,8 +79,8 @@ var followHandler = function () {
     makePostRequest('/api/profile/follow/' + id, null, onPostSuccess, onFailure);
 };
 
-var playlistHandler = function (playlist_id) {
-    $(".track-list").html('<div class="loading-div"><img class="loading" src="../static/img/loading.gif"/></div>');
+var trackHandler = function (playlist_id) {
+    $(".track-list").html(loading_html);
     
     var onSuccess = function (data) {
         $('.track-list').html('');
@@ -87,14 +88,14 @@ var playlistHandler = function (playlist_id) {
         for(var i = 0; i < data.tracks.length; i++) {
             $('.track-list').append(track_format(data.tracks[i].track.name, data.tracks[i].track.artists[0].name, data.tracks[i].track.album.name))
         }
+
+        graphHandler(playlist_id);
     }
 
     var onFailure = function (data) {
-        console.error('Display Playlist - Failed')
+        console.error('Display Tracks - Failed')
     }
     
-    console.log(playlist_id);
-
     makeGetRequest('/api/playlist/' + playlist_id, onSuccess, onFailure);
 };
 
@@ -112,7 +113,7 @@ var statusHandler = function () {
 };
 
 var displayMyPlaylists = function () {
-    $(".playlist-list").html('<div class="loading-div"><img class="loading" src="../static/img/loading.gif"/></div>');
+    $(".playlist-list").html(loading_html);
 
     var onSuccess = function (data) {
         $(".playlist-list").html('');
@@ -144,3 +145,46 @@ var displayPlaylists = function(id) {
 
     makeGetRequest('/api/playlists/' + id, onSuccess, onFailure);
 };
+
+
+var graphHandler = function(id) {
+    $(".graph-image-container").html(loading_html);
+    
+    var onSuccess = function(data) {
+        graph_data = [{
+            type: 'scatterpolar',
+            r: [data.danceability, data.energy, data.speechiness, data.acousticness, data.instrumentalness, data.liveness, data.valence],
+            theta: ['danceability','energy','speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence'],
+            fill: 'toself'
+        }]
+
+        layout = {
+            polar: {
+                radialaxis: {
+                    visible: true,
+                    range: [0, 1]
+                }
+            },
+            showlegend: false,
+            colorway: ['#1db954'],
+            paper_bgcolor: '#191414',
+            plot_bgcolor: '#191414',
+            font: {
+                color: '#ffffff'
+            },
+            radialaxis: {
+                showgrid: false
+            }
+        }
+        
+        $(".graph-image-container").html("<div class='graph' id='graph'></div>");
+        
+        Plotly.plot("graph", graph_data, layout)
+    }
+
+    var onFailure = function(data) {
+        console.error('Display Graph - Failed');
+    }
+
+    makeGetRequest('/api/playlist/' + id + '/features', onSuccess, onFailure);
+}
